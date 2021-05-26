@@ -31,6 +31,19 @@ or single BIP38 encryption/decryption :
 perl bip38convert.pl <priv_key> <password>
 perl bip38convert.pl <enc_priv_key> <password>
 
+Can use to BIP38 encrypt LTC/ETH private keys by converting them to hex keys first, then interpreting that as a BTC private key, then apply BIP38. Then reverse the procedure to decrypt.
+
+ETH BIP38 encrypt :
+perl btc-hextoprivkey.pl -f eth-privkeys.txt > btc-privkeys.txt
+.... edit btc-privkeys.txt to append password on first line ....
+perl bip38convert.pl -f btc-privkeys.txt > eth-encprivkeys.txt
+
+LTC BIP38 encrypt :
+perl ltc-privkeytohex.pl -f ltc-privkeys.txt > hex-keys.txt
+perl btc-hextoprivkey.pl -f hex-keys.txt > btc-privkeys.txt
+.... edit btc-privkeys.txt to append password on first line ....
+perl bip38convert.pl -f btc-privkeys.txt > ltc-encprivkeys.txt
+
 No warranty or claim of fitness for any purpose is provided, I have just found these useful in my own work,
 and have always used them only as a second cross-checking method for anything of value. They have always
 correlated with the results of bitaddress.org and liteaddress.org.
