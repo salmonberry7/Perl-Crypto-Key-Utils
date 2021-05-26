@@ -1,0 +1,52 @@
+The following scripts are adapted to Litecoin from the Bitcoin versions :-
+ltc-hextoprivkey.pl
+ltc-privkeytohex.pl
+ltc-privkeytoaddr.pl
+
+(Bitcoin versions are :-
+btc-hextoprivkey.pl
+btc-privkeytohex.pl
+btc-privkeytoaddr.pl
+)
+
+It is assumed that 
+(a)	Litecoin uses the same Elliptic Curve Cryptography secp256k1 standard as Bitcoin 
+(b)	Litecoin addresses and private keys are constructed in the same way as Bitcoin except for the different 
+	version prefixes (see below)
+(c)	Litecoin uses the Bitcoin form of Base58 encoding
+
+The changes which were made were :-
+
+(1)	Different version prefixes for Litecoin :-
+	Version prefix for Litecoin address		=	0x30
+	Version prefix for Litecoin private key	=	0xB0
+
+(2)	Assume that Litecoin address ALWAYS starts with an 'L'
+	Assume that Litecoin WIF-uncompressed private key ALWAYS begins with '6'
+	Assume that Litecoin WIF-compressed private key ALWAYS begins with 'T'
+
+	These respectively follow from considering the Base58 encodings of the following :-
+	30000000000000000000000000000000000000000000000000								Lowest value	(25 bytes)
+	30FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF								Highest value	(25 bytes)
+	B0000000000000000000000000000000000000000000000000000000000000000000000000		Lowest value (37 bytes)
+	B0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF		Highest value (37 bytes)
+	B000000000000000000000000000000000000000000000000000000000000000000000000000	Lowest value (38 bytes)
+	B0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF	Highest value (38 bytes)
+
+	which are respectively :-
+	LKDxGDJq5fF4FohAB8zJH24mDDNH8EzzBZ												Lowest value (Base58)
+	LiZZFKc7nqhw5EqFCZKcm9LYqidDqUapVt												Highest value (Base58)
+	6u823ozcyt2rjPH8Z2ErsSXJB5PPQwK7VVTwwN4mxLBFrT4JLXq								Lowest value (Base58)
+	6w4mE3SeqJi5sCrqTbrrpm856C174e9zH8Y4BWkfwzBeM58GngE								Highest value (Base58)
+	T33ydQRKp4FCW5LCLLUB7deioUMoveiwekdwUwyfRDeGZG1ZXD4s							Lowest value (Base58)
+	TBdcCZnDzDALUbLxtQs4uokD3uZTm4zfpCG53QKkuhPyqbD6gcCn							Highest value (Base58)
+
+(3)	Change the word 'Bitcoin' to 'Litecoin' where appropriate. In some cases the word 'Bitcoin' is left in
+	(eg in function decode_bitcoin_base58, because the function is identical to the Bitcoin version).
+
+Note that between the above 3 scripts certain functions are common and should be copied identically from one
+to the other.
+
+Changes made to the original Bitcoin scripts would mean a corresponding change should be made to the Litecoin versions,
+though as these scripts are fairly 'atomic' in nature there should not be many such changes.
+
