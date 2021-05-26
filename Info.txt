@@ -1,0 +1,39 @@
+Perl Scripts For Private Key/Public Key/Hex Key Conversions & BIP38 Encryption For BTC/LTC/ETH
+----------------------------------------------------------------------------------------------
+
+A collection of Perl scripts for the command line based on the CryptX CPAN module.
+
+Can process individual keys or files of keys in bulk. They work with the standard old style keys.
+
+May be useful as a second method for cross-checking purposes on a cold storage system when generating new keys
+and BIP38 encrypting/decrypting keys.
+
+Can assist with generating LTC/ETH private keys from BTC private keys, since LTC/ETH use same secp256k1 ECC as BTC so that
+private keys for all three are simply numbers in the range [1, n - 1] where :
+n = FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
+is the parameter specified in secp256k1 (ref: https://www.secg.org/sec2-v2.pdf and https://www.secg.org/sec1-v2.pdf)
+
+May be easily adaptable to other cryptos which also use secp256k1.
+
+ETH :
+perl btc-privkeytohex.pl -f btc-privkeys.txt > eth-privkeys.txt
+perl eth-privkeytoaddr.pl -f eth-privkeys.txt > eth-addresses.txt
+
+LTC :
+perl btc-privkeytohex.pl -f btc-privkeys.txt > hex-keys.txt
+perl ltc-hextoprivkey.pl -f hex-keys.txt > ltc-privkeys.txt
+perl ltc-privkeytoaddr.pl -f ltc-privkeys.txt > ltc-addresses.txt
+
+Can perform bulk BIP38 encryption/decryption :
+perl bip38convert.pl -f <filename1> <filename2> ... > output.txt
+
+or single BIP38 encryption/decryption :
+perl bip38convert.pl <priv_key> <password>
+perl bip38convert.pl <enc_priv_key> <password>
+
+No warranty or claim of fitness for any purpose is provided, I have just found these useful in my own work,
+and have always used them only as a second cross-checking method for anything of value. They have always
+correlated with the results of bitaddress.org and liteaddress.org.
+
+Tested on Perl v5.12.3.
+
