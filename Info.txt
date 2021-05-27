@@ -15,11 +15,11 @@ is the parameter specified in secp256k1 (ref: https://www.secg.org/sec2-v2.pdf a
 
 May be easily adaptable to other cryptos which also use secp256k1.
 
-ETH :
+Generate ETH keys :
 perl btc-privkeytohex.pl -f btc-privkeys.txt > eth-privkeys.txt
 perl eth-privkeytoaddr.pl -f eth-privkeys.txt > eth-addresses.txt
 
-LTC :
+Generare LTC keys :
 perl btc-privkeytohex.pl -f btc-privkeys.txt > hex-keys.txt
 perl ltc-hextoprivkey.pl -f hex-keys.txt > ltc-privkeys.txt
 perl ltc-privkeytoaddr.pl -f ltc-privkeys.txt > ltc-addresses.txt
@@ -38,11 +38,22 @@ perl btc-hextoprivkey.pl -f eth-privkeys.txt > btc-privkeys.txt
 .... edit btc-privkeys.txt to append password on first line ....
 perl bip38convert.pl -f btc-privkeys.txt > eth-encprivkeys.txt
 
+ETH BIP38 decrypt :
+.... edit eth-encprivkeys.txt to append password on first line ....
+perl bip38convert.pl -f eth-encprivkeys.txt > btc-privkeys.txt
+perl btc-privkeytohex.pl -f btc-privkeys.txt > eth-privkeys.txt
+
 LTC BIP38 encrypt :
 perl ltc-privkeytohex.pl -f ltc-privkeys.txt > hex-keys.txt
 perl btc-hextoprivkey.pl -f hex-keys.txt > btc-privkeys.txt
 .... edit btc-privkeys.txt to append password on first line ....
 perl bip38convert.pl -f btc-privkeys.txt > ltc-encprivkeys.txt
+
+LTC BIP38 decrypt :
+.... edit ltc-encprivkeys.txt to append password on first line ....
+perl bip38convert.pl -f ltc-encprivkeys.txt > btc-privkeys.txt
+perl btc-privkeytohex.pl -f btc-privkeys.txt > hex-keys.txt
+perl ltc-hextoprivkey.pl -f hex-keys.txt > ltc-privkeys.txt
 
 No warranty or claim of fitness for any purpose is provided, I have just found these useful in my own work,
 and have always used them only as a second cross-checking method for anything of value. They have always
